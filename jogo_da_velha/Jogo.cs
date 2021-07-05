@@ -11,6 +11,7 @@ namespace jogo_da_velha
         public string[,] pecas { get; private set; }
         private string usuario;
         private string computador;
+        public string vencedor { get; private set; }
         public bool acabou { get; private set; }
 
         public Jogo()
@@ -89,6 +90,75 @@ namespace jogo_da_velha
 
             }
             
+        }
+
+        public void verificarVitoria()
+        {
+            if (verificarLinhas() || verificarColunas())
+            {
+                acabou = true;
+            }
+        }
+
+
+        private bool verificarLinhas()
+        {
+            string casaAnterior;
+            //verifica as linhas 
+            for (int linha = 0; linha < 3; linha++)
+            {
+                casaAnterior = pecas[linha, 0];
+
+                for (int coluna = 0; coluna < 3; coluna++)
+                {
+                    if (pecas[linha, coluna] != casaAnterior || pecas[linha, coluna] == null)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        if (coluna == 2)
+                        {
+                            vencedor = casaAnterior;
+                            Console.WriteLine("vencedor linha");
+                            return true;
+                        
+                        }
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        private bool verificarColunas()
+        {
+            string casaAnterior;
+            //verifica as linhas 
+            for (int coluna = 0; coluna < 3; coluna++)
+            {
+                casaAnterior = pecas[0, coluna];
+
+                for (int linha = 0; linha < 3; linha++)
+                {
+                    if (pecas[linha, coluna] != casaAnterior || pecas[linha, coluna] == null)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        if (linha == 2)
+                        {
+                            vencedor = casaAnterior;
+                            Console.WriteLine("vencedor coluna");
+                            return true;
+
+                        }
+                    }
+                }
+            }
+
+            return false;
         }
     }
 }

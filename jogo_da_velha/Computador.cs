@@ -8,7 +8,6 @@ namespace jogo_da_velha
 {
     class Computador
     {
-
         private Jogo jogo;
 
         public Computador(Jogo jogo)

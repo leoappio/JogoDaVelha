@@ -19,21 +19,33 @@ namespace jogo_da_velha
                 Console.WriteLine("Jogo da velha");
                 Console.WriteLine("Você é X e o computador é O");
                 Console.WriteLine("Boa sorte!");
+
                 Tela.ImprimirTabuleiro(jogo);
+
                 Console.WriteLine();
                 Console.WriteLine("Digite uma posição para jogar [1-9]");
+
                 int jogada = int.Parse(Console.ReadLine());
 
                 if(jogo.realizarJogada(jogada, "X"))
                 {
-                    computador.realizarJogada();
-                }
+                    jogo.verificarVitoria();
 
+                    if (!jogo.acabou)
+                    {
+                        computador.realizarJogada();
+                    }
+                    
+                }
 
             }
 
+            Console.Clear();
+            Tela.ImprimirTabuleiro(jogo);
+            Console.WriteLine();
+            Console.WriteLine(jogo.vencedor+" é o vencedor!!!");
+            Console.WriteLine("reinicie o programa para jogar novamente");
 
-            
 
             Console.ReadLine();
         }
