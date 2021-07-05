@@ -9,17 +9,21 @@ namespace jogo_da_velha
     class Jogo
     {
         public string[,] pecas { get; private set; }
-        private string usuario;
-        private string computador;
         public string vencedor { get; private set; }
         public bool acabou { get; private set; }
+
+        public int qteJogadas { get; private set; }
 
         public Jogo()
         {
             this.pecas = new string[3, 3];
-            this.usuario = "X";
-            this.computador = "O";
             this.acabou = false;
+            this.qteJogadas = 0;
+        }
+
+        public void incrementarJogada()
+        {
+            qteJogadas++;
         }
 
         public bool realizarJogada(int numero, string jogador)
@@ -94,7 +98,7 @@ namespace jogo_da_velha
 
         public void verificarVitoria()
         {
-            if (verificarLinhas() || verificarColunas())
+            if (verificarLinhas() || verificarColunas() || verificarDiagonalPrincipal() || verificarDiagonalSecundaria())
             {
                 acabou = true;
             }
@@ -120,7 +124,6 @@ namespace jogo_da_velha
                         if (coluna == 2)
                         {
                             vencedor = casaAnterior;
-                            Console.WriteLine("vencedor linha");
                             return true;
                         
                         }
@@ -150,12 +153,33 @@ namespace jogo_da_velha
                         if (linha == 2)
                         {
                             vencedor = casaAnterior;
-                            Console.WriteLine("vencedor coluna");
                             return true;
 
                         }
                     }
                 }
+            }
+
+            return false;
+        }
+
+        private bool verificarDiagonalPrincipal()
+        {
+            if (pecas[0, 0] == pecas[1, 1] && pecas[1, 1] == pecas[2, 2] && pecas[0, 0] != null)
+            {
+                vencedor = pecas[0, 0];
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool verificarDiagonalSecundaria()
+        {
+            if(pecas[0,2] == pecas[1,1] && pecas[1, 1] == pecas[2, 0] && pecas[0,2] != null)
+            {
+                vencedor = pecas[0,2];
+                return true;
             }
 
             return false;

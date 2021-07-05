@@ -30,21 +30,41 @@ namespace jogo_da_velha
                 if(jogo.realizarJogada(jogada, "X"))
                 {
                     jogo.verificarVitoria();
+                    jogo.incrementarJogada();
 
                     if (!jogo.acabou)
                     {
-                        computador.realizarJogada();
-                    }
-                    
+                        if (jogo.qteJogadas > 8)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            computador.realizarJogada();
+                            jogo.incrementarJogada();
+                            jogo.verificarVitoria();
+                        }
+                    }             
                 }
-
             }
 
-            Console.Clear();
-            Tela.ImprimirTabuleiro(jogo);
-            Console.WriteLine();
-            Console.WriteLine(jogo.vencedor+" é o vencedor!!!");
-            Console.WriteLine("reinicie o programa para jogar novamente");
+            if (jogo.qteJogadas > 8 && !jogo.acabou)
+            {
+                Console.Clear();
+                Tela.ImprimirTabuleiro(jogo);
+                Console.WriteLine();
+                Console.WriteLine("Deu velha!!!");
+                Console.WriteLine("reinicie o programa para jogar novamente");
+            }
+            else
+            {
+                Console.Clear();
+                Tela.ImprimirTabuleiro(jogo);
+                Console.WriteLine();
+                Console.WriteLine(jogo.vencedor + " é o vencedor!!!");
+                Console.WriteLine("reinicie o programa para jogar novamente");
+            }
+
 
 
             Console.ReadLine();
